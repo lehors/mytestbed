@@ -19,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment || 'Production' }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Check environment variables
         uses: ./.github/actions/setup-check
         with:
@@ -41,6 +44,9 @@ jobs:
       MYENV: ${{ inputs.environment || 'Production' }}
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Deploy live
         run: |
           echo MYENV=$MYENV
