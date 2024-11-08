@@ -1,0 +1,30 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'web/**'
+      - 'patches/**'
+      - 'scripts/**'
+      - 'composer.json'
+      - 'composer.lock'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Run tests in environment'
+        required: true
+        type: environment
+        default: 'Stage'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: My step
+        env:
+          DOCROOT: ${{ github.workspace }}/web
+        run: |
+          echo ALH Step
