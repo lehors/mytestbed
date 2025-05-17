@@ -17,6 +17,15 @@ on:
         required: true
         type: environment
         default: 'Stage'
+      force-update:
+        description: 'Force update of all?'
+        type: boolean
+        defaultValue: false
+      donothing:
+        description: 'Do nothing?'
+        required: true
+        type: boolean
+        defaultValue: false
 
 jobs:
   test:
@@ -26,5 +35,14 @@ jobs:
       - name: My step
         env:
           DOCROOT: ${{ github.workspace }}/web
+        if: ${{ ! inputs.donothing }}
         run: |
-          echo ALH Step
+          if ${{ inputs.force-update }}; then
+            echo ALH forced Step ${{ inputs.force-update }}
+            ssh $DEPLOY_USER@$DEPLOY_HOST << EOF
+            echo yes
+
+          EOF
+          else
+            echo ALH Step ${{ inputs.force-update }}
+          fi
