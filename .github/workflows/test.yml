@@ -32,12 +32,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Init step
+        if: ${{ inputs.force-update }}
+        run: |
+          echo "force-update=true" >> $GITHUB_ENV
+
       - name: My step
         env:
           DOCROOT: ${{ github.workspace }}/web
         if: ${{ ! inputs.donothing }}
         run: |
-          if ${{ inputs.force-update }}; then
+          if ${{ env.force-update == 'true' }}; then
             echo ALH forced Step ${{ inputs.force-update }}
             ssh $DEPLOY_USER@$DEPLOY_HOST << EOF
             echo yes
