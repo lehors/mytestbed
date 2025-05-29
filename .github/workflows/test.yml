@@ -44,7 +44,7 @@ jobs:
         run: |
           if ${{ env.force-update == 'true' }}; then
             echo ALH forced Step ${{ inputs.force-update }}
-            ssh $DEPLOY_USER@$DEPLOY_HOST << EOF
+            echo ssh $DEPLOY_USER@$DEPLOY_HOST << EOF
             echo yes
 
           EOF
