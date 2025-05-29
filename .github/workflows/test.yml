@@ -42,7 +42,7 @@ jobs:
           DOCROOT: ${{ github.workspace }}/web
         if: ${{ ! inputs.donothing }}
         run: |
-          if ${{ env.force-update == 'true' }}; then
+          if ${{ env.force-update }}; then
             echo ALH forced Step ${{ inputs.force-update }}
             echo ssh $DEPLOY_USER@$DEPLOY_HOST << EOF
             echo yes
