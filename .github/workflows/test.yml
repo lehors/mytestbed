@@ -43,7 +43,7 @@ jobs:
           echo first step!
 
       - name: My step
-        if: ${{ ! inputs.donothing || env.force-update == 'true' }}
+        if: ${{ ! inputs.donothing && env.force-update == 'true' }}
         run: |
           if ${{ env.force-update == 'true' }}; then
             echo ALH forced Step ${{ inputs.force-update }}
