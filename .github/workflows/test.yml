@@ -48,8 +48,6 @@ jobs:
           if ${{ env.force-update == 'true' }}; then
             echo ALH forced Step ${{ inputs.force-update }}
             echo yes
-
-          EOF
           else
             echo ALH Step ${{ inputs.force-update }}
           fi
