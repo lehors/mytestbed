@@ -33,18 +33,20 @@ jobs:
 
     steps:
       - name: Init step
-        if: ${{ inputs.force-update == 'true' }}
+        if: ${{ inputs.force-update }}
         run: |
           echo "force-update=true" >> $GITHUB_ENV
 
+      - name: My first step
+        if: ${{ env.force-update == 'true' }}
+        run: |
+          echo first step!
+
       - name: My step
-        env:
-          DOCROOT: ${{ github.workspace }}/web
-        if: ${{ inputs.donothing != 'true' }}
+        if: ${{ ! inputs.donothing || env.force-update == 'true' }}
         run: |
           if ${{ env.force-update == 'true' }}; then
             echo ALH forced Step ${{ inputs.force-update }}
-            echo ssh $DEPLOY_USER@$DEPLOY_HOST << EOF
             echo yes
 
           EOF
